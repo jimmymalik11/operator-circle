@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operator Circle — AI & Automation Mastermind</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0b1626;
+      --navy-mid:   #112040;
+      --navy-light: #1a2f54;
+      --orange:     #f97316;
+      --orange-dim: #ea6a08;
+      --text:       #e8edf5;
+      --muted:      #8fa3c0;
+      --border:     rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 22, 38, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+
+    .nav-logo span { color: var(--orange); }
+
+    .nav-cta {
+      background: var(--orange);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 0.45rem 1.1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--orange-dim); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 7rem 1.5rem 5rem;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(249, 115, 22, 0.15);
+      color: var(--orange);
+      border: 1px solid rgba(249, 115, 22, 0.35);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.75rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+
+    h1 span { color: var(--orange); }
+
+    .subheadline {
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 0.9rem 2.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .hero-cta:hover { background: var(--orange-dim); transform: translateY(-1px); }
+
+    .hero-meta {
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--orange);
+      border-radius: 2px;
+      margin: 0 auto 2rem;
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 5rem 1.5rem;
+    }
+
+    .section-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 600px;
+    }
+
+    /* ── WHO IT'S FOR ── */
+    .who-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .who-card {
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .who-card .icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .who-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .who-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* ── WHAT'S INCLUDED ── */
+    .included-section { background: var(--navy-mid); }
+
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .included-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .check {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: rgba(249, 115, 22, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .check svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--orange);
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .included-item h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .included-item p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* ── PRICING ── */
+    .pricing-card {
+      max-width: 480px;
+      margin: 2.5rem auto 0;
+      background: var(--navy-mid);
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      border-radius: 16px;
+      padding: 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(249,115,22,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .pricing-tag {
+      display: inline-block;
+      background: rgba(249, 115, 22, 0.15);
+      color: var(--orange);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      margin-bottom: 1.25rem;
+    }
+
+    .price {
+      font-size: 3.5rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .price-note {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .pricing-features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.9rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pricing-features li:last-child { border-bottom: none; }
+
+    .pricing-features li::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+
+    /* ── WAITLIST ── */
+    .waitlist-section { background: var(--navy-mid); }
+
+    .waitlist-card {
+      max-width: 520px;
+      margin: 2.5rem auto 0;
+      background: var(--navy);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.1rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+      border-color: var(--orange);
+    }
+
+    input::placeholder { color: var(--muted); opacity: 0.7; }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--orange);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover { background: var(--orange-dim); transform: translateY(-1px); }
+
+    .form-disclaimer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+
+    /* ── SUCCESS STATE ── */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .success-msg .success-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .success-msg h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .success-msg p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero { padding: 5rem 1.25rem 3.5rem; }
+      section { padding: 3.5rem 1.25rem; }
+      .waitlist-card, .pricing-card { padding: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Operator<span>Circle</span></div>
+    <a href="#waitlist" class="nav-cta">Join the Waitlist</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">10-Week Cohort &mdash; Limited Spots</div>
+    <h1>A mastermind for entrepreneurs building <span>with AI and automation</span></h1>
+    <p class="subheadline">You know the tools. Now build the practice.</p>
+    <a href="#waitlist" class="hero-cta">Join the Waitlist</a>
+    <p class="hero-meta">Early cohort pricing &mdash; $1,500</p>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section id="who">
+    <div class="section-inner">
+      <p class="section-label">Who it's for</p>
+      <h2>Built for motivated builders<br>doing this for real</h2>
+      <p class="lead">Operator Circle is for entrepreneurs who are early in building an AI or automation business &mdash; and who want more than tutorials.</p>
+      <div class="who-grid">
+        <div class="who-card">
+          <div class="icon">&#127919;</div>
+          <h3>Focused on outcomes</h3>
+          <p>You want traction, paying clients, and a repeatable system &mdash; not just more knowledge.</p>
+        </div>
+        <div class="who-card">
+          <div class="icon">&#128101;</div>
+          <h3>Craving real peers</h3>
+          <p>You want accountability partners who are in the trenches doing the same work, not a passive community.</p>
+        </div>
+        <div class="who-card">
+          <div class="icon">&#128270;</div>
+          <h3>Ready for honest feedback</h3>
+          <p>You want direct input on your positioning, offers, and approach &mdash; not just encouragement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INCLUDED -->
+  <section id="included" class="included-section">
+    <div class="section-inner">
+      <p class="section-label">What's included</p>
+      <h2>Everything you need to move fast<br>and stay accountable</h2>
+      <p class="lead">Ten weeks of structured support, coaching, and peer accountability &mdash; nothing you don't need.</p>
+      <div class="included-grid">
+
+        <div class="included-item">
+          <div class="check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <h3>10 Weekly Live Sessions</h3>
+            <p>90-minute group sessions covering strategy, execution, and real-time troubleshooting.</p>
+          </div>
+        </div>
+
+        <div class="included-item">
+          <div class="check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <h3>2 Private 1:1 Coaching Calls</h3>
+            <p>Direct coaching sessions focused on your specific business and bottlenecks.</p>
+          </div>
+        </div>
+
+        <div class="included-item">
+          <div class="check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <h3>Positioning & Client Acquisition</h3>
+            <p>Proven frameworks for finding your niche, crafting your offer, and landing clients.</p>
+          </div>
+        </div>
+
+        <div class="included-item">
+          <div class="check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <h3>Async Support</h3>
+            <p>Get feedback between sessions &mdash; on your outreach, proposals, and deliverables.</p>
+          </div>
+        </div>
+
+        <div class="included-item">
+          <div class="check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <h3>Peer Accountability</h3>
+            <p>A small, committed cohort holding each other to their commitments week over week.</p>
+          </div>
+        </div>
+
+        <div class="included-item">
+          <div class="check">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <h3>Resource Library</h3>
+            <p>Templates, SOPs, and reference material to accelerate your build.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="section-inner" style="text-align:center;">
+      <p class="section-label">Investment</p>
+      <h2>Simple, transparent pricing</h2>
+      <p class="lead" style="margin:0 auto;">Early cohort pricing is available now. Spots are limited to keep the group small and high-quality.</p>
+      <div class="pricing-card">
+        <div class="pricing-tag">Early Cohort Pricing</div>
+        <div class="price">$1,500</div>
+        <p class="price-note">One-time investment for the full 10-week program</p>
+        <ul class="pricing-features">
+          <li>10 weekly live group sessions (90 min each)</li>
+          <li>2 private 1:1 coaching calls</li>
+          <li>Positioning & client acquisition frameworks</li>
+          <li>Async feedback &amp; support</li>
+          <li>Peer accountability cohort</li>
+          <li>Full resource library access</li>
+        </ul>
+        <a href="#waitlist" class="hero-cta" style="display:block;text-align:center;width:100%;">Reserve Your Spot</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAITLIST -->
+  <section id="waitlist" class="waitlist-section">
+    <div class="section-inner" style="text-align:center;">
+      <p class="section-label">Join the Waitlist</p>
+      <h2>Get early access &amp; be the first to know</h2>
+      <p class="lead" style="margin:0 auto;">Cohort size is intentionally small. Drop your details and we'll reach out with next steps before spots open to the public.</p>
+
+      <div class="waitlist-card">
+        <div id="waitlist-form-wrap">
+          <form id="waitlist-form" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+            </div>
+            <button type="submit" class="submit-btn">Join the Waitlist &rarr;</button>
+          </form>
+          <p class="form-disclaimer">No spam. Just an update when the cohort opens.</p>
+        </div>
+        <div class="success-msg" id="success-msg">
+          <div class="success-icon">&#10003;</div>
+          <h3>You're on the list!</h3>
+          <p>We'll be in touch with details before spots open to the public. Talk soon.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 Operator Circle. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('waitlist-form-wrap').style.display = 'none';
+      const msg = document.getElementById('success-msg');
+      msg.style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>

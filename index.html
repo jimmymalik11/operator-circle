@@ -294,64 +294,42 @@
     }
 
     /* ── TESTIMONIALS ── */
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2.5rem;
-    }
+    <div class="testimonials-grid">
 
-    .testimonial-card {
-      background: var(--navy-mid);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem;
-    }
+  <div class="testimonial-card">
+    <p class="testimonial-quote">This mastermind has been truly transformative. It served as an accountability system, a learning platform, and a powerful feedback loop. It completely changed how I approach business and setbacks, and I came out of it with a very strong growth mindset.</p>
+    <div class="testimonial-author">
+      <img class="avatar" src="Kabelo.webp" alt="Kabelo" style="object-fit:cover;">
+      <div>
+        <div class="author-name">Kabelo</div>
+        <div class="author-location">Botswana</div>
+      </div>
+    </div>
+  </div>
 
-    .testimonial-quote {
-      font-size: 0.97rem;
-      color: var(--text);
-      line-height: 1.75;
-      font-style: italic;
-      margin-bottom: 1.5rem;
-      position: relative;
-    }
+  <div class="testimonial-card">
+    <p class="testimonial-quote">The program helped me keep my focus on how to help business owners instead of just building things. I'd recommend it to anyone who wants to move from building stuff to speaking to business owners in a way they actually understand.</p>
+    <div class="testimonial-author">
+      <img class="avatar" src="Seb.webp" alt="Sebenzile" style="object-fit:cover;">
+      <div>
+        <div class="author-name">Sebenzile</div>
+        <div class="author-location">South Africa</div>
+      </div>
+    </div>
+  </div>
 
-    .testimonial-quote::before {
-      content: "\201C";
-      font-size: 3rem;
-      color: var(--orange);
-      opacity: 0.5;
-      line-height: 0;
-      vertical-align: -0.4em;
-      margin-right: 0.15em;
-    }
+  <div class="testimonial-card">
+    <p class="testimonial-quote">This was my first mastermind and it was worth it. Jimmy was a great leader — he made it fun, engaging, and not time-consuming. He pushed everyone to be a better version of themselves, cared about us as people, not just the business side. In just 8 weeks, this group changed my life. I'm looking forward to joining future projects.</p>
+    <div class="testimonial-author">
+      <img class="avatar" src="Andrey.jpg" alt="Andrey" style="object-fit:cover;">
+      <div>
+        <div class="author-name">Andrey</div>
+        <div class="author-location">Founder</div>
+      </div>
+    </div>
+  </div>
 
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-    }
-
-    .avatar {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: var(--navy-light);
-      border: 2px solid rgba(227, 114, 27, 0.4);
-      flex-shrink: 0;
-    }
-
-    .author-name {
-      font-size: 0.92rem;
-      font-weight: 700;
-    }
-
-    .author-location {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
+</div>
     /* ── INVESTMENT ── */
     .investment-section { background: var(--navy-mid); }
 
